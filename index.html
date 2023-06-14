@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Would You Rather</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .option {
+            padding: 10px 20px;
+            background-color: #eaeaea;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        
+        .option:hover {
+            background-color: #ccc;
+        }
+        
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Would You Rather</h1>
+    <div class="question" id="question"></div>
+    <div class="options">
+        <div class="option" id="option1"></div>
+        <div class="option" id="option2"></div>
+    </div>
+    <div id="result"></div>
+
+    <script>
+      
+        var questions = [
+            {
+                question: "Would you rather pry off your thumbnail with a fork or Put a toothpick under your big toenail and kick a wall",
+                option1: "Pry off my thumbnail",
+                option2: "Toothpick"
+            },
+            {
+                question: "Pee your pants in public once a week or Poop your pants in private every other day?",
+                option1: "Pee my pants",
+                option2: "Poop your pants"
+            },
+            {
+                question: "Always have to use sandpapaer as toilet paper or Always have to use hot sauce as eye/ear drops?",
+                option1: "Sandpaper",
+                option2: "Hot sauce"
+            },
+            {
+                question: "Get violent diarrhea and throw up on your boss while giving a giant presentation in front of the entire company or a Trip while walking down the aisle at your own wedding, causing you to break an arm?",
+                option1: "Violent diarrhea",
+                option2: "Trip down"
+            },
+            {
+                question: "Would you rather walk in on your grandma while she's hooking up with someone or Have your grandma walk in on you while you're hooking up with someone?",
+                option1: "Walk in on your grandma",
+                option2: "Have your grandma walk into you"
+            }
+        ];
+
+        // Get the DOM elements
+        var questionElement = document.getElementById("question");
+        var option1Element = document.getElementById("option1");
+        var option2Element = document.getElementById("option2");
+        var resultElement = document.getElementById("result");
+
+        // Function to display a random question
+        function displayRandomQuestion() {
+            var randomIndex = Math.floor(Math.random() * questions.length);
+            var question = questions[randomIndex];
+            
+            questionElement.textContent = question.question;
+            option1Element.textContent = question.option1;
+            option2Element.textContent = question.option2;
+        }
+
+        // Function to handle the user's choice
+        function handleChoice(choice) {
+            var chosenOption = choice === 1 ? option1Element.textContent : option2Element.textContent;
+            resultElement.textContent = "You chose: " + chosenOption;
+        }
+
+        // Attach event listeners to the options
+        option1Element.addEventListener("click", function() {
+            handleChoice(1);
+j        });
+
+        option2Element.addEventListener("click", function() {
+            handleChoice(2);
+        });
+
+        // Display the initial random question
+        displayRandomQuestion();
+    </script>
+</body>
+</html>
