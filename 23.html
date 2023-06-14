@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h1>Odion's VERY OWN SLEF MADE Weather App</h1>
+  
+  <!-- Form to input the city name -->
+  <form id="weatherForm">
+    <label for="cityInput">Enter city name:</label>
+    <input type="text" id="cityInput" required>
+    <button type="submit">Get </button>
+  </form>
+  
+  <!-- section to display weather information -->
+  <div id="weatherInfo"></div>
+  
+  <script>
+    // Add event listener to the form submission
+    document.getElementById("weatherForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      var city = document.getElementById("cityInput").value; // Get the city name from the input field
+      getWeather(city); // Call the getWeather function with the city name
+    });
+    
+    function getWeather(city) {
+      var apiKey = "1a073d0736168ffeb1de85e75501c3fd";
+      var url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+
+      // grabs weather data from the API
+      fetch(url)
+        .then(function(response) {
+          return response.json(); // returns the response as JSON
+        })
+        .then(function(data) {
+          displayWeather(data); // Calls the displayWeather function with the retrieved data
+        })
+        .catch(function(error) {
+          console.log(error);
+          document.getElementById("weatherInfo").innerHTML = "Error fetching weather data."; // Display error message
+        });
+    }
+    
+    function displayWeather(data) {
+      var weatherInfo = document.getElementById("weatherInfo");
+      weatherInfo.innerHTML = ""; // Clear previous weather information
+      
+      // Create and populate elements to display weather information
+      var cityName = document.createElement("h2");
+      cityName.textContent = data.name; // City name
+      
+      var temperature = document.createElement("p");
+      temperature.textContent = "Temperature: " + ((data.main.temp - 273.15) * 9/5 + 32).toFixed(1) + "°F"; ; // Temperature in Celsius
+      
+      var weatherDesc = document.createElement("p");
+      weatherDesc.textContent = "Weather: " + data.weather[0].main; // Brief weather description
+      
+      // Append weather information elements to the weatherInfo div
+      weatherInfo.appendChild(cityName);
+      weatherInfo.appendChild(temperature);
+      weatherInfo.appendChild(weatherDesc);
+    }
+  </script>
+</body>
+</html>
